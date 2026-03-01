@@ -1,6 +1,29 @@
+/* root variables for theming */
+:root {
+    --bg-color: #f4f4f4;
+    --text-color: #333;
+    --container-bg: #fff;
+    --item-border: #ddd;
+    --item-bg: #fff;
+    --item-text: #000;
+    --delete-bg: #e74c3c;
+}
+
+/* dark theme overrides */
+[data-theme="dark"] {
+    --bg-color: #181818;
+    --text-color: #eee;
+    --container-bg: #242424;
+    --item-border: #333;
+    --item-bg: #2a2a2a;
+    --item-text: #fff;
+    --delete-bg: #c0392b;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
     padding: 0;
 }
@@ -9,7 +32,7 @@ body {
     width: 90%;
     max-width: 600px;
     margin: 30px auto;
-    background: white;
+    background: var(--container-bg);
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -24,6 +47,14 @@ body {
     flex: 1;
     padding: 10px;
     font-size: 16px;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
 #add-btn {
@@ -42,7 +73,9 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--item-border);
+    background: var(--item-bg);
+    color: var(--item-text);
 }
 
 /* completed state for todos */
@@ -52,7 +85,7 @@ body {
 }
 
 .delete-btn {
-    background: #e74c3c;
+    background: var(--delete-bg);
     border: none;
     color: white;
     padding: 5px 10px;
