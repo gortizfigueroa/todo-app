@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+#todo-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#add-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* completed state for todos */
+.todo-item.completed span {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
