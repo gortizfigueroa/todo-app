@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const addBtn = document.getElementById('add-btn');
     const list = document.getElementById('todo-list');
 
-    function addTodo(text, completed = false) {
+    // animate parameter allows skipping effect (useful when initializing from storage)
+    function addTodo(text, completed = false, animate = true) {
         const li = document.createElement('li');
         li.className = 'todo-item';
         if (completed) li.classList.add('completed');
@@ -22,10 +23,30 @@ document.addEventListener('DOMContentLoaded', () => {
         deleteBtn.addEventListener('click', (e) => {
             // prevent click from bubbling to span
             e.stopPropagation();
-            list.removeChild(li);
-            saveTodos();
+            // animate removal before actually deleting
+            li.classList.add('removing');
+            li.addEventListener('animationend', () => {
+                list.removeChild(li);
+                saveTodos();
+            }, { once: true });
         });
+        // insert item and optionally animate
         list.appendChild(li);
+        if (animate) {
+            requestAnimationFrame(() => {
+                li.classList.add('adding');
+            });
+            li.addEventListener('animationend', () => {
+                // ensure final visible state after animation
+                li.style.opacity = '1';
+                li.style.transform = 'none';
+                li.classList.remove('adding');
+            }, { once: true });
+        } else {
+            // ensure it's visible if skipping animation
+            li.style.opacity = '1';
+            li.style.transform = 'none';
+        }
         saveTodos();
     }
 
@@ -44,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!data) return;
         try {
             const items = JSON.parse(data);
-            items.forEach(item => addTodo(item.text, item.completed));
+            items.forEach(item => addTodo(item.text, item.completed, false));
         } catch (err) {
             console.error('Failed to parse todos from storage', err);
         }
